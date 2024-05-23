@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.34407.143
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{3B740506-4966-4147-AB1F-357FE08946EA}") = "TcHmiJoystick", "TcHmiJoystick\TcHmiJoystick.hmiextproj", "{BB833AFD-9BE4-4D77-9D9F-1A6F7253B09A}"
+EndProject
+Project("{FE7A1B72-C5B7-4D7C-BB7D-76384D4DE8E1}") = "TcHmiJoystickDemo", "TcHmiJoystickDemo\TcHmiJoystickDemo.hmiproj", "{7D1F5AEB-578A-4AC9-BBCF-1330703373A1}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|TwinCAT HMI = Debug|TwinCAT HMI
+		Release|TwinCAT HMI = Release|TwinCAT HMI
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BB833AFD-9BE4-4D77-9D9F-1A6F7253B09A}.Debug|TwinCAT HMI.ActiveCfg = Debug|TwinCAT HMI
+		{BB833AFD-9BE4-4D77-9D9F-1A6F7253B09A}.Debug|TwinCAT HMI.Build.0 = Debug|TwinCAT HMI
+		{BB833AFD-9BE4-4D77-9D9F-1A6F7253B09A}.Release|TwinCAT HMI.ActiveCfg = Release|TwinCAT HMI
+		{BB833AFD-9BE4-4D77-9D9F-1A6F7253B09A}.Release|TwinCAT HMI.Build.0 = Release|TwinCAT HMI
+		{7D1F5AEB-578A-4AC9-BBCF-1330703373A1}.Debug|TwinCAT HMI.ActiveCfg = Debug|TwinCAT HMI
+		{7D1F5AEB-578A-4AC9-BBCF-1330703373A1}.Debug|TwinCAT HMI.Build.0 = Debug|TwinCAT HMI
+		{7D1F5AEB-578A-4AC9-BBCF-1330703373A1}.Release|TwinCAT HMI.ActiveCfg = Release|TwinCAT HMI
+		{7D1F5AEB-578A-4AC9-BBCF-1330703373A1}.Release|TwinCAT HMI.Build.0 = Release|TwinCAT HMI
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C1BC255C-F01A-4DEE-B0CB-22C135332641}
+	EndGlobalSection
+EndGlobal
