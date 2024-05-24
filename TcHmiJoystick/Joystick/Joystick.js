@@ -46,6 +46,12 @@ var TcHmi;
                  */
                 __init() {
                     super.__init();
+                    this.__elementTemplateRoot.on('mousemove', () => {
+                        TcHmi.EventProvider.raise(this.__id + '.onUserInteractionMoved');
+                    });
+                    this.__elementTemplateRoot.on('touchmove', () => {
+                        TcHmi.EventProvider.raise(this.__id + '.onUserInteractionMoved');
+                    });
                 }
                 /**
                  * Is called by the system after the control instance is inserted into the active DOM.
@@ -53,10 +59,11 @@ var TcHmi;
                  */
                 __attach() {
                     super.__attach();
-                    this.__joystick = new JoyStick('joyDiv');
                     /**
                      * Initialize everything which is only available while the control is part of the active dom.
                      */
+                    this.__joystick = new JoyStick('joyDiv');
+                    this.__onUserInteractionMovedEvent = TcHmi.EventProvider.register(this.__id + '.onUserInteractionMoved', this.__onUserInteractionMoved());
                 }
                 /**
                  * Is called by the system when the control instance is no longer part of the active DOM.
@@ -68,6 +75,7 @@ var TcHmi;
                      * Disable everything that is not needed while the control is not part of the active DOM.
                      * For example, there is usually no need to listen for events!
                      */
+                    this.__onUserInteractionMovedEvent = null;
                 }
                 /**
                  * Destroy the current control instance.
@@ -84,6 +92,60 @@ var TcHmi;
                     /**
                      * Free resources like child controls etc.
                      */
+                }
+                __onUserInteractionMoved() {
+                    return (evt) => {
+                        this.setX(this.__joystick.GetX());
+                        this.setY(this.__joystick.GetY());
+                    };
+                }
+                setX(valueNew) {
+                    // convert the value with the value converter
+                    let convertedValue = TcHmi.ValueConverter.toNumber(valueNew);
+                    // check if the converted value is valid
+                    if (convertedValue === null) {
+                        // if we have no value to set we have to fall back to the defaultValueInternal from description.json
+                        convertedValue = this.getAttributeDefaultValueInternal('X');
+                    }
+                    if (tchmi_equal(convertedValue, this.__x)) {
+                        // skip processing when the value has not changed
+                        return;
+                    }
+                    // remember the new value
+                    this.__x = convertedValue;
+                    // inform the system that the function has a changed result.
+                    TcHmi.EventProvider.raise(this.__id + '.onPropertyChanged', { propertyName: 'X' });
+                    // call process function to process the new value
+                    this.__processX();
+                }
+                getX() {
+                    return this.__x;
+                }
+                __processX() {
+                }
+                setY(valueNew) {
+                    // convert the value with the value converter
+                    let convertedValue = TcHmi.ValueConverter.toNumber(valueNew);
+                    // check if the converted value is valid
+                    if (convertedValue === null) {
+                        // if we have no value to set we have to fall back to the defaultValueInternal from description.json
+                        convertedValue = this.getAttributeDefaultValueInternal('Y');
+                    }
+                    if (tchmi_equal(convertedValue, this.__y)) {
+                        // skip processing when the value has not changed
+                        return;
+                    }
+                    // remember the new value
+                    this.__y = convertedValue;
+                    // inform the system that the function has a changed result.
+                    TcHmi.EventProvider.raise(this.__id + '.onPropertyChanged', { propertyName: 'Y' });
+                    // call process function to process the new value
+                    this.__processY();
+                }
+                getY() {
+                    return this.__y;
+                }
+                __processY() {
                 }
             }
             TcHmiJoystick.Joystick = Joystick;

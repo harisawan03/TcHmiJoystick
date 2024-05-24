@@ -33,6 +33,9 @@ module TcHmi {
 
                 protected __elementTemplateRoot!: JQuery;
                 protected __joystick: any;
+                protected __x: number;
+                protected __y: number;
+                protected __onUserInteractionMovedEvent: any;
 
                 /**
                  * Raised after the control was added to the control cache and the constructors of all base classes were called.
@@ -52,6 +55,14 @@ module TcHmi {
                  */
                 public __init() {
                     super.__init();
+
+                    this.__elementTemplateRoot.on('mousemove', () => {
+                        TcHmi.EventProvider.raise(this.__id + '.onUserInteractionMoved');
+                    });
+
+                    this.__elementTemplateRoot.on('touchmove', () => {
+                        TcHmi.EventProvider.raise(this.__id + '.onUserInteractionMoved');
+                    });
                 }
 
                 /**
@@ -61,11 +72,13 @@ module TcHmi {
                 public __attach() {
                     super.__attach();
 
-                    this.__joystick = new JoyStick('joyDiv');
-
                     /**
                      * Initialize everything which is only available while the control is part of the active dom.
                      */
+
+                    this.__joystick = new JoyStick('joyDiv');
+
+                    this.__onUserInteractionMovedEvent = TcHmi.EventProvider.register(this.__id + '.onUserInteractionMoved', this.__onUserInteractionMoved());
                 }
 
                 /**
@@ -79,6 +92,7 @@ module TcHmi {
                      * Disable everything that is not needed while the control is not part of the active DOM.
                      * For example, there is usually no need to listen for events!
                      */
+                    this.__onUserInteractionMovedEvent = null;
                 }
 
                 /**
@@ -98,6 +112,80 @@ module TcHmi {
                     /**
                      * Free resources like child controls etc.
                      */
+                }
+
+                protected __onUserInteractionMoved() {
+                    return (evt: any) => {
+                        this.setX(this.__joystick.GetX());
+                        this.setY(this.__joystick.GetY());
+                    }
+                }
+
+                public setX(valueNew: number | null): void {
+                    // convert the value with the value converter
+                    let convertedValue = TcHmi.ValueConverter.toNumber(valueNew);
+
+                    // check if the converted value is valid
+                    if (convertedValue === null) {
+                        // if we have no value to set we have to fall back to the defaultValueInternal from description.json
+                        convertedValue = this.getAttributeDefaultValueInternal('X') as number;
+                    }
+
+                    if (tchmi_equal(convertedValue, this.__x)) {
+                        // skip processing when the value has not changed
+                        return;
+                    }
+
+                    // remember the new value
+                    this.__x = convertedValue;
+
+                    // inform the system that the function has a changed result.
+                    TcHmi.EventProvider.raise(this.__id + '.onPropertyChanged', { propertyName: 'X' });
+
+                    // call process function to process the new value
+                    this.__processX();
+                }
+
+                public getX() {
+                    return this.__x;
+                }
+
+                protected __processX() {
+                    
+                }
+
+
+                public setY(valueNew: number | null): void {
+                    // convert the value with the value converter
+                    let convertedValue = TcHmi.ValueConverter.toNumber(valueNew);
+
+                    // check if the converted value is valid
+                    if (convertedValue === null) {
+                        // if we have no value to set we have to fall back to the defaultValueInternal from description.json
+                        convertedValue = this.getAttributeDefaultValueInternal('Y') as number;
+                    }
+
+                    if (tchmi_equal(convertedValue, this.__y)) {
+                        // skip processing when the value has not changed
+                        return;
+                    }
+
+                    // remember the new value
+                    this.__y = convertedValue;
+
+                    // inform the system that the function has a changed result.
+                    TcHmi.EventProvider.raise(this.__id + '.onPropertyChanged', { propertyName: 'Y' });
+
+                    // call process function to process the new value
+                    this.__processY();
+                }
+
+                public getY() {
+                    return this.__y;
+                }
+
+                protected __processY() {
+                                     
                 }
             }
         }

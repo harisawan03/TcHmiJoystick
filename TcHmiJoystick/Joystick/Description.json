@@ -68,10 +68,60 @@
         }
     },
   "attributes": [
+    {
+      "name": "data-tchmi-x",
+      "propertyName": "X",
+      "propertySetterName": "setX",
+      "propertyGetterName": "getX",
+      "displayName": "X",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 10,
+      "type": "tchmi:general#/definitions/Number",
+      "category": "Value",
+      "description": "",
+      "readOnly": false,
+      "bindable": true,
+      "defaultBindingMode": "TwoWay",
+      "heritable": true,
+      "defaultValue": null,
+      "defaultValueInternal": null
+    },
+    {
+      "name": "data-tchmi-y",
+      "propertyName": "Y",
+      "propertySetterName": "setY",
+      "propertyGetterName": "getY",
+      "displayName": "Y",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 10,
+      "type": "tchmi:general#/definitions/Number",
+      "category": "Value",
+      "description": "",
+      "readOnly": false,
+      "bindable": true,
+      "defaultBindingMode": "TwoWay",
+      "heritable": true,
+      "defaultValue": null,
+      "defaultValueInternal": null
+    }
   ],
   "attributeCategories": [],
   "functions": [],
-  "events": [],
+  "events": [
+    {
+      "name": ".onUserInteractionMoved",
+      "displayName": ".onUserInteractionMoved",
+      "visible": false,
+      "displayPriority": 30,
+      "category": "Control",
+      "description": "Fires when a user moves over the joy stick.",
+      "heritable": true,
+      "allowsPreventDefault": false
+    }
+
+  ],
   "dataTypes": [
     {
       "schema": "Schema/Types.Schema.json"
