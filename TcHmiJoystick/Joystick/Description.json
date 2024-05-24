@@ -40,6 +40,11 @@
       "name": "Style.css",
       "type": "Stylesheet",
       "description": "Theme independent style"
+    },
+    {
+      "name": "../Lib/joy.min.js",
+      "type": "JavaScript",
+      "description": "Joystick library ref"
     }
   ],
     "themes": {

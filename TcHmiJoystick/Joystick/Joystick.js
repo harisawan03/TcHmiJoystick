@@ -53,6 +53,7 @@ var TcHmi;
                  */
                 __attach() {
                     super.__attach();
+                    this.__joystick = new JoyStick('joyDiv');
                     /**
                      * Initialize everything which is only available while the control is part of the active dom.
                      */

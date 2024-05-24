@@ -2,6 +2,9 @@
  * Generated 5/23/2024 4:07:55 PM
  * Copyright (C) 2024
  */
+
+declare var JoyStick: any;
+
 module TcHmi {
     export module Controls {
         export module TcHmiJoystick {
@@ -29,6 +32,7 @@ module TcHmi {
                 }
 
                 protected __elementTemplateRoot!: JQuery;
+                protected __joystick: any;
 
                 /**
                  * Raised after the control was added to the control cache and the constructors of all base classes were called.
@@ -56,6 +60,8 @@ module TcHmi {
                  */
                 public __attach() {
                     super.__attach();
+
+                    this.__joystick = new JoyStick('joyDiv');
 
                     /**
                      * Initialize everything which is only available while the control is part of the active dom.
