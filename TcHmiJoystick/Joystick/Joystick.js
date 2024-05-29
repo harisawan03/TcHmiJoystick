@@ -62,8 +62,9 @@ var TcHmi;
                     /**
                      * Initialize everything which is only available while the control is part of the active dom.
                      */
-                    this.__joystick = this.__initJoystick(); //new JoyStick('joyDiv');
+                    this.__joystick = this.__initJoystick();
                     this.__onUserInteractionMovedEvent = TcHmi.EventProvider.register(this.__id + '.onUserInteractionMoved', this.__onUserInteractionMoved());
+                    this.__onResizedEvent = TcHmi.EventProvider.register(this.__id + '.onResized', this.__onResized());
                 }
                 /**
                  * Is called by the system when the control instance is no longer part of the active DOM.
@@ -76,6 +77,7 @@ var TcHmi;
                      * For example, there is usually no need to listen for events!
                      */
                     this.__onUserInteractionMovedEvent = null;
+                    this.__onResizedEvent = null;
                 }
                 /**
                  * Destroy the current control instance.
@@ -99,12 +101,29 @@ var TcHmi;
                         this.setY(this.__joystick.GetY());
                     };
                 }
+                __onResized() {
+                    return (evt) => {
+                        this.__joystick = this.__initJoystick();
+                    };
+                }
                 __initJoystick() {
-                    return new JoyStick(this.__id + '_joyDiv', {
+                    // if canvas has already been created, remove it
+                    this.__joystickCanvas?.remove();
+                    // get height and width of control
+                    const width = this.getRenderedWidth() || 0;
+                    const height = this.getRenderedHeight() || 0;
+                    // use smallest side to determine canvas dimensions
+                    const dimensions = Math.min(width, height);
+                    const joystickObj = new JoyStick(this.__id + '_joyDiv', {
+                        'title': this.__id + '_joystick',
+                        'width': dimensions,
+                        'height': dimensions,
                         'internalFillColor': '#000000',
                         'internalStrokeColor': '#222222',
                         'externalStrokeColor': '#000000'
                     });
+                    this.__joystickCanvas = document.getElementById(this.__id + '_joystick');
+                    return joystickObj;
                 }
                 setX(valueNew) {
                     // convert the value with the value converter

@@ -32,22 +32,27 @@ module TcHmi {
                 }
 
                 protected __elementTemplateRoot!: JQuery;
+                protected __joystickCanvas: HTMLCanvasElement | null;
                 protected __joystick: any;
                 protected __x: number;
                 protected __y: number;
                 protected __onUserInteractionMovedEvent: any;
+                protected __onResizedEvent: any;
 
                 /**
                  * Raised after the control was added to the control cache and the constructors of all base classes were called.
                  */
                 public __previnit() {
+
                     // Fetch template root element
                     this.__elementTemplateRoot = this.__element.find('.TcHmi_Controls_TcHmiJoystick_Joystick-Template');
                     if (this.__elementTemplateRoot.length === 0) {
                         throw new Error('Invalid Template.html');
                     }
+
                     // Call __previnit of base class
                     super.__previnit();
+
                 }
                 /**
                  * Is called during control initialization after the attribute setters have been called. 
@@ -76,9 +81,11 @@ module TcHmi {
                      * Initialize everything which is only available while the control is part of the active dom.
                      */
 
-                    this.__joystick = this.__initJoystick(); //new JoyStick('joyDiv');
+                    this.__joystick = this.__initJoystick();
 
                     this.__onUserInteractionMovedEvent = TcHmi.EventProvider.register(this.__id + '.onUserInteractionMoved', this.__onUserInteractionMoved());
+
+                    this.__onResizedEvent = TcHmi.EventProvider.register(this.__id + '.onResized', this.__onResized());
                 }
 
                 /**
@@ -93,6 +100,7 @@ module TcHmi {
                      * For example, there is usually no need to listen for events!
                      */
                     this.__onUserInteractionMovedEvent = null;
+                    this.__onResizedEvent = null;
                 }
 
                 /**
@@ -121,12 +129,37 @@ module TcHmi {
                     }
                 }
 
+                protected __onResized() {                    
+                    return (evt: any) => {
+                        this.__joystick = this.__initJoystick();
+                    }
+                }
+
                 protected __initJoystick() {
-                    return new JoyStick(this.__id + '_joyDiv', {
+
+                    // if canvas has already been created, remove it
+                    this.__joystickCanvas?.remove();
+
+                    // get height and width of control
+                    const width = this.getRenderedWidth() || 0;
+                    const height = this.getRenderedHeight() || 0;
+
+                    // use smallest side to determine canvas dimensions
+                    const dimensions = Math.min(width, height);
+
+                    const joystickObj = new JoyStick(this.__id + '_joyDiv', {
+                        'title': this.__id + '_joystick',
+                        'width': dimensions,
+                        'height': dimensions,
                         'internalFillColor' : '#000000',
                         'internalStrokeColor': '#222222',
                         'externalStrokeColor' : '#000000'
                     });
+
+                    this.__joystickCanvas = document.getElementById(this.__id + '_joystick') as HTMLCanvasElement;
+
+                    return joystickObj;
+
                 }
 
                 public setX(valueNew: number | null): void {
