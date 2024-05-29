@@ -62,7 +62,7 @@ var TcHmi;
                     /**
                      * Initialize everything which is only available while the control is part of the active dom.
                      */
-                    this.__joystick = new JoyStick('joyDiv');
+                    this.__joystick = this.__initJoystick(); //new JoyStick('joyDiv');
                     this.__onUserInteractionMovedEvent = TcHmi.EventProvider.register(this.__id + '.onUserInteractionMoved', this.__onUserInteractionMoved());
                 }
                 /**
@@ -98,6 +98,13 @@ var TcHmi;
                         this.setX(this.__joystick.GetX());
                         this.setY(this.__joystick.GetY());
                     };
+                }
+                __initJoystick() {
+                    return new JoyStick(this.__id + '_joyDiv', {
+                        'internalFillColor': '#000000',
+                        'internalStrokeColor': '#222222',
+                        'externalStrokeColor': '#000000'
+                    });
                 }
                 setX(valueNew) {
                     // convert the value with the value converter

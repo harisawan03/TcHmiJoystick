@@ -76,6 +76,18 @@
         "type": "tchmi:general#/definitions/Number",
         "persist": false,
         "readonly": false
+      },
+      "i": {
+        "value": 0.0,
+        "type": "tchmi:general#/definitions/Number",
+        "persist": false,
+        "readonly": false
+      },
+      "j": {
+        "value": 0.0,
+        "type": "tchmi:general#/definitions/Number",
+        "persist": false,
+        "readonly": false
       }
     },
     "themedResources": {}
