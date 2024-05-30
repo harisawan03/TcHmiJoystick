@@ -5,6 +5,8 @@ A joystick for TwinCAT HMI which outputs vector data
 
 v1.0.0 built in TE2000 1.12.760.59 and must be used in equal or greater versions.
 
+Credit for JoyStick Library - https://github.com/bobboteck/JoyStick (MIT License)
+
 ## Getting Started
 
 Ensure TE2000 v1.12.760.59+ is installed and all System Requirements are met for TwinCAT HMI Engineering.
