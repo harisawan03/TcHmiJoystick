@@ -3,11 +3,11 @@
   <metadata>
     <id>TcHmiJoystick</id>
     <version>1.0.0</version>
-    <description>-.-</description>
-    <authors>ADD AUTHOR</authors>
+    <description>A joystick control which outputs vector data.</description>
+    <authors>Haris Awan</authors>
     <title>TcHmiJoystick</title>
-    <owners>ADD OWNER</owners>
-    <projectUrl>http://PROJECT_URL_HERE_OR_DELETE_THIS_LINE</projectUrl>
+    <owners>Haris Awan</owners>
+    <projectUrl>https://github.com/harisawan03/TcHmiJoystick</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <releaseNotes>Summary of changes made in this release of the package.</releaseNotes>
     <copyright>Copyright 2024</copyright>

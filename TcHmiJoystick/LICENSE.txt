@@ -1,1 +1,7 @@
-ADD LICENSE
+Contains library: 
+
+**************
+JoyStick 2
+https://github.com/bobboteck/JoyStick
+License: MIT
+**************

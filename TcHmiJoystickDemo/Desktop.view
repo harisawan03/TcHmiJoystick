@@ -2,7 +2,7 @@
   <div id="ViewDesktopBeckhoffLogo" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiImage" data-tchmi-src="Images/Beckhoff_Logo.svg" data-tchmi-left="20" data-tchmi-top="20" data-tchmi-width="194" data-tchmi-height="57">
 
   </div>
-<div id="Joystick" data-tchmi-type="TcHmi.Controls.TcHmiJoystick.Joystick" data-tchmi-height="200" data-tchmi-height-unit="px" data-tchmi-left="56" data-tchmi-left-unit="px" data-tchmi-top="92" data-tchmi-top-unit="px" data-tchmi-width="200" data-tchmi-width-unit="px" data-tchmi-x="%i%x%/i%" data-tchmi-y="%i%y%/i%">
+<div id="Joystick" data-tchmi-type="TcHmi.Controls.TcHmiJoystick.Joystick" data-tchmi-height="200" data-tchmi-height-unit="px" data-tchmi-left="56" data-tchmi-left-unit="px" data-tchmi-top="92" data-tchmi-top-unit="px" data-tchmi-width="200" data-tchmi-width-unit="px" data-tchmi-x="%i%x%/i%" data-tchmi-y="%i%y%/i%" data-tchmi-threshold="50">
 
 
 </div>
@@ -14,7 +14,7 @@
 
 <script data-tchmi-target-attribute="data-tchmi-joystick-color" type="application/json">
 {
-  "color": "rgba(255, 0, 0, 1)"
+  "color": "rgba(73, 52, 231, 1)"
 }
 </script>
 </div>

@@ -37,6 +37,8 @@ module TcHmi {
                 protected __x: number;
                 protected __y: number;
                 protected __joystickColor: Color;
+                protected __threshold: number;
+                protected __thresholdExceeded: boolean;
                 protected __onUserInteractionMovedEvent: any;
                 protected __onResizedEvent: any;
 
@@ -163,6 +165,10 @@ module TcHmi {
 
                 }
 
+                protected __haveOppositeSigns(a: number, b: number): boolean {
+                    return (a * b) <= 0;
+                }
+
                 public setX(valueNew: number | null): void {
 
                     // convert the value with the value converter
@@ -185,10 +191,17 @@ module TcHmi {
                     // inform the system that the function has a changed result.
                     TcHmi.EventProvider.raise(this.__id + '.onPropertyChanged', { propertyName: 'X' });
 
+                    // call process function to process the new value
+                    this.__processX();
+
                 }
 
                 public getX() {
                     return this.__x;
+                }
+
+                protected __processX() {
+                    this.__checkThreshold();
                 }
 
 
@@ -208,16 +221,74 @@ module TcHmi {
                         return;
                     }
 
+                    if (this.__y !== 0 && this.__thresholdExceeded && this.__haveOppositeSigns(convertedValue, this.__y)) {
+                        return;
+                    }
+
                     // remember the new value
                     this.__y = convertedValue;
 
                     // inform the system that the function has a changed result.
                     TcHmi.EventProvider.raise(this.__id + '.onPropertyChanged', { propertyName: 'Y' });
 
+                    // call process function to process the new value
+                    this.__processY();
+
                 }
 
                 public getY() {
                     return this.__y;
+                }
+
+                protected __processY() {
+
+                }
+
+                protected __checkThreshold() {
+
+                    this.__thresholdExceeded = false;
+
+                    if (this.__threshold) {
+                        if (Math.abs(this.__x) > Math.abs(this.__threshold)) {
+                            this.__thresholdExceeded = true;
+                        }
+                    }
+
+                }
+
+                public setThreshold(valueNew: number | null): void {
+
+                    // convert the value with the value converter
+                    let convertedValue = TcHmi.ValueConverter.toNumber(valueNew);
+
+                    // check if the converted value is valid
+                    if (convertedValue === null) {
+                        // if we have no value to set we have to fall back to the defaultValueInternal from description.json
+                        convertedValue = this.getAttributeDefaultValueInternal('Threshold') as number;
+                    }
+
+                    if (tchmi_equal(convertedValue, this.__threshold)) {
+                        // skip processing when the value has not changed
+                        return;
+                    }
+
+                    // remember the new value
+                    this.__threshold = convertedValue;
+
+                    // inform the system that the function has a changed result.
+                    TcHmi.EventProvider.raise(this.__id + '.onPropertyChanged', { propertyName: 'Threshold' });
+
+                    // call process function to process the new value
+                    this.__processThreshold();
+
+                }
+
+                public getThreshold() {
+                    return this.__threshold;
+                }
+
+                protected __processThreshold() {
+                    this.__checkThreshold();
                 }
 
                 public setJoystickColor(valueNew: Color | null): void {
