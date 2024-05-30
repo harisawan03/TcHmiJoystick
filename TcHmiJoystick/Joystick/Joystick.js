@@ -118,9 +118,9 @@ var TcHmi;
                         'title': this.__id + '_joystick',
                         'width': dimensions,
                         'height': dimensions,
-                        'internalFillColor': '#000000',
-                        'internalStrokeColor': '#222222',
-                        'externalStrokeColor': '#000000'
+                        'internalFillColor': this.__joystickColor['color'],
+                        'internalStrokeColor': '#444466',
+                        'externalStrokeColor': this.__joystickColor['color']
                     });
                     this.__joystickCanvas = document.getElementById(this.__id + '_joystick');
                     return joystickObj;
@@ -141,13 +141,9 @@ var TcHmi;
                     this.__x = convertedValue;
                     // inform the system that the function has a changed result.
                     TcHmi.EventProvider.raise(this.__id + '.onPropertyChanged', { propertyName: 'X' });
-                    // call process function to process the new value
-                    this.__processX();
                 }
                 getX() {
                     return this.__x;
-                }
-                __processX() {
                 }
                 setY(valueNew) {
                     // convert the value with the value converter
@@ -165,13 +161,34 @@ var TcHmi;
                     this.__y = convertedValue;
                     // inform the system that the function has a changed result.
                     TcHmi.EventProvider.raise(this.__id + '.onPropertyChanged', { propertyName: 'Y' });
-                    // call process function to process the new value
-                    this.__processY();
                 }
                 getY() {
                     return this.__y;
                 }
-                __processY() {
+                setJoystickColor(valueNew) {
+                    // check if the converted value is valid
+                    if (valueNew === null) {
+                        // if we have no value to set we have to fall back to the defaultValueInternal from description.json
+                        valueNew = this.getAttributeDefaultValueInternal('JoystickColor');
+                    }
+                    if (tchmi_equal(valueNew, this.__joystickColor)) {
+                        // skip processing when the value has not changed
+                        return;
+                    }
+                    // remember the new value
+                    this.__joystickColor = valueNew;
+                    // inform the system that the function has a changed result.
+                    TcHmi.EventProvider.raise(this.__id + '.onPropertyChanged', { propertyName: 'JoystickColor' });
+                    // call process function to process the new value
+                    this.__processJoystickColor();
+                }
+                getJoystickColor() {
+                    return this.__joystickColor;
+                }
+                __processJoystickColor() {
+                    if (this.__joystickCanvas) {
+                        this.__joystick = this.__initJoystick();
+                    }
                 }
             }
             TcHmiJoystick.Joystick = Joystick;

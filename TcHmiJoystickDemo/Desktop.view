@@ -3,12 +3,20 @@
 
   </div>
 <div id="Joystick" data-tchmi-type="TcHmi.Controls.TcHmiJoystick.Joystick" data-tchmi-height="200" data-tchmi-height-unit="px" data-tchmi-left="56" data-tchmi-left-unit="px" data-tchmi-top="92" data-tchmi-top-unit="px" data-tchmi-width="200" data-tchmi-width-unit="px" data-tchmi-x="%i%x%/i%" data-tchmi-y="%i%y%/i%">
+
+
 </div>
 <div id="TcHmiTextblock" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiTextblock" data-tchmi-height="26" data-tchmi-height-unit="px" data-tchmi-left="421" data-tchmi-left-unit="px" data-tchmi-text="%f%'X: ' + %i%x%/i%%/f%" data-tchmi-top="153" data-tchmi-top-unit="px" data-tchmi-width="150" data-tchmi-width-unit="px" data-tchmi-word-wrap="true">
 </div>
 <div id="TcHmiTextblock_1" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiTextblock" data-tchmi-height="26" data-tchmi-height-unit="px" data-tchmi-left="421" data-tchmi-left-unit="px" data-tchmi-text="%f%'Y: ' + %i%y%/i%%/f%" data-tchmi-top="217" data-tchmi-top-unit="px" data-tchmi-width="150" data-tchmi-width-unit="px" data-tchmi-word-wrap="true">
 </div>
-<div id="Joystick_1" data-tchmi-type="TcHmi.Controls.TcHmiJoystick.Joystick" data-tchmi-height="200" data-tchmi-height-unit="px" data-tchmi-left="524" data-tchmi-left-unit="px" data-tchmi-top="376" data-tchmi-top-unit="px" data-tchmi-width="200" data-tchmi-width-unit="px" data-tchmi-x="%i%i%/i%" data-tchmi-y="%i%j%/i%">
+<div id="Joystick_1" data-tchmi-type="TcHmi.Controls.TcHmiJoystick.Joystick" data-tchmi-height="200" data-tchmi-height-unit="px" data-tchmi-left="526" data-tchmi-left-unit="px" data-tchmi-top="379" data-tchmi-top-unit="px" data-tchmi-width="200" data-tchmi-width-unit="px" data-tchmi-x="%i%i%/i%" data-tchmi-y="%i%j%/i%">
+
+<script data-tchmi-target-attribute="data-tchmi-joystick-color" type="application/json">
+{
+  "color": "rgba(255, 0, 0, 1)"
+}
+</script>
 </div>
 <div id="TcHmiTextblock_2" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiTextblock" data-tchmi-height="26" data-tchmi-height-unit="px" data-tchmi-left="336" data-tchmi-left-unit="px" data-tchmi-text="%f%'I: ' + %i%i%/i%%/f%" data-tchmi-top="422" data-tchmi-top-unit="px" data-tchmi-width="150" data-tchmi-width-unit="px" data-tchmi-word-wrap="true">
 </div>

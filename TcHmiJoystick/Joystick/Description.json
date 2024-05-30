@@ -105,6 +105,25 @@
       "heritable": true,
       "defaultValue": null,
       "defaultValueInternal": null
+    },
+    {
+      "name": "data-tchmi-joystick-color",
+      "propertyName": "JoystickColor",
+      "propertySetterName": "setJoystickColor",
+      "propertyGetterName": "getJoystickColor",
+      "displayName": "Joystick Color",
+      "visible": true,
+      "themeable": "Standard",
+      "displayPriority": 10,
+      "type": "tchmi:framework#/definitions/Color",
+      "category": "Color",
+      "description": "",
+      "readOnly": false,
+      "bindable": true,
+      "defaultBindingMode": "OneWay",
+      "heritable": true,
+      "defaultValue": null,
+      "defaultValueInternal": { "color": "#000000" }
     }
   ],
   "attributeCategories": [],

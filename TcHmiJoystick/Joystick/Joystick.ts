@@ -36,6 +36,7 @@ module TcHmi {
                 protected __joystick: any;
                 protected __x: number;
                 protected __y: number;
+                protected __joystickColor: Color;
                 protected __onUserInteractionMovedEvent: any;
                 protected __onResizedEvent: any;
 
@@ -151,9 +152,9 @@ module TcHmi {
                         'title': this.__id + '_joystick',
                         'width': dimensions,
                         'height': dimensions,
-                        'internalFillColor' : '#000000',
-                        'internalStrokeColor': '#222222',
-                        'externalStrokeColor' : '#000000'
+                        'internalFillColor': this.__joystickColor['color'],
+                        'internalStrokeColor': '#444466',
+                        'externalStrokeColor': this.__joystickColor['color']
                     });
 
                     this.__joystickCanvas = document.getElementById(this.__id + '_joystick') as HTMLCanvasElement;
@@ -163,6 +164,7 @@ module TcHmi {
                 }
 
                 public setX(valueNew: number | null): void {
+
                     // convert the value with the value converter
                     let convertedValue = TcHmi.ValueConverter.toNumber(valueNew);
 
@@ -183,20 +185,15 @@ module TcHmi {
                     // inform the system that the function has a changed result.
                     TcHmi.EventProvider.raise(this.__id + '.onPropertyChanged', { propertyName: 'X' });
 
-                    // call process function to process the new value
-                    this.__processX();
                 }
 
                 public getX() {
                     return this.__x;
                 }
 
-                protected __processX() {
-                    
-                }
-
 
                 public setY(valueNew: number | null): void {
+
                     // convert the value with the value converter
                     let convertedValue = TcHmi.ValueConverter.toNumber(valueNew);
 
@@ -217,16 +214,44 @@ module TcHmi {
                     // inform the system that the function has a changed result.
                     TcHmi.EventProvider.raise(this.__id + '.onPropertyChanged', { propertyName: 'Y' });
 
-                    // call process function to process the new value
-                    this.__processY();
                 }
 
                 public getY() {
                     return this.__y;
                 }
 
-                protected __processY() {
-                                     
+                public setJoystickColor(valueNew: Color | null): void {
+
+                    // check if the converted value is valid
+                    if (valueNew === null) {
+                        // if we have no value to set we have to fall back to the defaultValueInternal from description.json
+                        valueNew = this.getAttributeDefaultValueInternal('JoystickColor') as Color;
+                    }
+
+                    if (tchmi_equal(valueNew, this.__joystickColor)) {
+                        // skip processing when the value has not changed
+                        return;
+                    }
+
+                    // remember the new value
+                    this.__joystickColor = valueNew;
+
+                    // inform the system that the function has a changed result.
+                    TcHmi.EventProvider.raise(this.__id + '.onPropertyChanged', { propertyName: 'JoystickColor' });
+
+                    // call process function to process the new value
+                    this.__processJoystickColor();
+
+                }
+
+                public getJoystickColor() {
+                    return this.__joystickColor;
+                }
+
+                protected __processJoystickColor() {
+                    if (this.__joystickCanvas) {
+                        this.__joystick = this.__initJoystick();
+                    }
                 }
             }
         }
