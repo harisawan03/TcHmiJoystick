@@ -34,6 +34,7 @@ module TcHmi {
                 protected __elementTemplateRoot!: JQuery;
                 protected __joystickCanvas: HTMLCanvasElement | null;
                 protected __joystick: any;
+                protected __isPressed: boolean;
                 protected __x: number;
                 protected __y: number;
                 protected __joystickColor: Color;
@@ -41,6 +42,8 @@ module TcHmi {
                 protected __thresholdExceeded: boolean;
                 protected __onUserInteractionMovedEvent: any;
                 protected __onResizedEvent: any;
+                protected __onUserInteractionFinishedEvent: any;
+                protected __onUserInteractionCancelledEvent: any;
 
                 /**
                  * Raised after the control was added to the control cache and the constructors of all base classes were called.
@@ -62,15 +65,45 @@ module TcHmi {
                  * @returns {void}
                  */
                 public __init() {
+
                     super.__init();
+
+                    this.__elementTemplateRoot.on('mousedown', () => {
+                        this.__isPressed = true;
+                    });
 
                     this.__elementTemplateRoot.on('mousemove', () => {
                         TcHmi.EventProvider.raise(this.__id + '.onUserInteractionMoved');
                     });
 
+                    this.__elementTemplateRoot.on('mouseup', () => {
+                        this.__isPressed = false;
+                        TcHmi.EventProvider.raise(this.__id + '.onUserInteractionFinished');
+                    });
+
+                    this.__elementTemplateRoot.on('mouseout', () => {
+                        this.__isPressed = false;
+                        TcHmi.EventProvider.raise(this.__id + '.onUserInteractionCancelled');
+                    });
+
+                    this.__elementTemplateRoot.on('touchstart', () => {
+                        this.__isPressed = true;
+                    });
+
                     this.__elementTemplateRoot.on('touchmove', () => {
                         TcHmi.EventProvider.raise(this.__id + '.onUserInteractionMoved');
                     });
+
+                    this.__elementTemplateRoot.on('touchend', () => {
+                        this.__isPressed = false;
+                        TcHmi.EventProvider.raise(this.__id + '.onUserInteractionFinished');
+                    });
+
+                    this.__elementTemplateRoot.on('touchcancel', () => {
+                        this.__isPressed = false;
+                        TcHmi.EventProvider.raise(this.__id + '.onUserInteractionCancelled');
+                    });
+
                 }
 
                 /**
@@ -88,6 +121,10 @@ module TcHmi {
 
                     this.__onUserInteractionMovedEvent = TcHmi.EventProvider.register(this.__id + '.onUserInteractionMoved', this.__onUserInteractionMoved());
 
+                    this.__onUserInteractionFinishedEvent = TcHmi.EventProvider.register(this.__id + '.onUserInteractionFinished', this.__onUserInteractionFinished());
+
+                    this.__onUserInteractionCancelledEvent = TcHmi.EventProvider.register(this.__id + '.onUserInteractionCancelled', this.__onUserInteractionCancelled());
+
                     this.__onResizedEvent = TcHmi.EventProvider.register(this.__id + '.onResized', this.__onResized());
                 }
 
@@ -103,6 +140,8 @@ module TcHmi {
                      * For example, there is usually no need to listen for events!
                      */
                     this.__onUserInteractionMovedEvent = null;
+                    this.__onUserInteractionFinishedEvent = null;
+                    this.__onUserInteractionCancelledEvent = null;
                     this.__onResizedEvent = null;
                 }
 
@@ -127,8 +166,24 @@ module TcHmi {
 
                 protected __onUserInteractionMoved() {
                     return (evt: any) => {
-                        this.setX(this.__joystick.GetX());
-                        this.setY(this.__joystick.GetY());
+                        if (this.__isPressed) {
+                            this.setX(this.__joystick.GetX());
+                            this.setY(this.__joystick.GetY());
+                        }
+                    }
+                }
+
+                protected __onUserInteractionFinished() {
+                    return (evt: any) => {
+                        this.setX(0);
+                        this.setY(0);
+                    }
+                }
+
+                protected __onUserInteractionCancelled() {
+                    return (evt: any) => {
+                        this.setX(0);
+                        this.setY(0);
                     }
                 }
 

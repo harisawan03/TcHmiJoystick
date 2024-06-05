@@ -46,11 +46,33 @@ var TcHmi;
                  */
                 __init() {
                     super.__init();
+                    this.__elementTemplateRoot.on('mousedown', () => {
+                        this.__isPressed = true;
+                    });
                     this.__elementTemplateRoot.on('mousemove', () => {
                         TcHmi.EventProvider.raise(this.__id + '.onUserInteractionMoved');
                     });
+                    this.__elementTemplateRoot.on('mouseup', () => {
+                        this.__isPressed = false;
+                        TcHmi.EventProvider.raise(this.__id + '.onUserInteractionFinished');
+                    });
+                    this.__elementTemplateRoot.on('mouseout', () => {
+                        this.__isPressed = false;
+                        TcHmi.EventProvider.raise(this.__id + '.onUserInteractionCancelled');
+                    });
+                    this.__elementTemplateRoot.on('touchstart', () => {
+                        this.__isPressed = true;
+                    });
                     this.__elementTemplateRoot.on('touchmove', () => {
                         TcHmi.EventProvider.raise(this.__id + '.onUserInteractionMoved');
+                    });
+                    this.__elementTemplateRoot.on('touchend', () => {
+                        this.__isPressed = false;
+                        TcHmi.EventProvider.raise(this.__id + '.onUserInteractionFinished');
+                    });
+                    this.__elementTemplateRoot.on('touchcancel', () => {
+                        this.__isPressed = false;
+                        TcHmi.EventProvider.raise(this.__id + '.onUserInteractionCancelled');
                     });
                 }
                 /**
@@ -64,6 +86,8 @@ var TcHmi;
                      */
                     this.__joystick = this.__initJoystick();
                     this.__onUserInteractionMovedEvent = TcHmi.EventProvider.register(this.__id + '.onUserInteractionMoved', this.__onUserInteractionMoved());
+                    this.__onUserInteractionFinishedEvent = TcHmi.EventProvider.register(this.__id + '.onUserInteractionFinished', this.__onUserInteractionFinished());
+                    this.__onUserInteractionCancelledEvent = TcHmi.EventProvider.register(this.__id + '.onUserInteractionCancelled', this.__onUserInteractionCancelled());
                     this.__onResizedEvent = TcHmi.EventProvider.register(this.__id + '.onResized', this.__onResized());
                 }
                 /**
@@ -77,6 +101,8 @@ var TcHmi;
                      * For example, there is usually no need to listen for events!
                      */
                     this.__onUserInteractionMovedEvent = null;
+                    this.__onUserInteractionFinishedEvent = null;
+                    this.__onUserInteractionCancelledEvent = null;
                     this.__onResizedEvent = null;
                 }
                 /**
@@ -97,8 +123,22 @@ var TcHmi;
                 }
                 __onUserInteractionMoved() {
                     return (evt) => {
-                        this.setX(this.__joystick.GetX());
-                        this.setY(this.__joystick.GetY());
+                        if (this.__isPressed) {
+                            this.setX(this.__joystick.GetX());
+                            this.setY(this.__joystick.GetY());
+                        }
+                    };
+                }
+                __onUserInteractionFinished() {
+                    return (evt) => {
+                        this.setX(0);
+                        this.setY(0);
+                    };
+                }
+                __onUserInteractionCancelled() {
+                    return (evt) => {
+                        this.setX(0);
+                        this.setY(0);
                     };
                 }
                 __onResized() {

@@ -121,12 +121,14 @@ var JoyStick = (function(container, parameters, callback)
         canvas.addEventListener("touchstart", onTouchStart, false);
         document.addEventListener("touchmove", onTouchMove, false);
         document.addEventListener("touchend", onTouchEnd, false);
+        document.addEventListener("touchcancel", onTouchCancel, false); ////
     }
     else
     {
         canvas.addEventListener("mousedown", onMouseDown, false);
         document.addEventListener("mousemove", onMouseMove, false);
         document.addEventListener("mouseup", onMouseUp, false);
+        document.addEventListener("mouseout", onMouseOut, false); ////
     }
     // Draw the object
     drawExternal();
@@ -241,6 +243,31 @@ var JoyStick = (function(container, parameters, callback)
         callback(StickStatus);
     }
 
+    ////
+    function onTouchCancel(event) {
+        if (event.changedTouches[0].identifier !== touchId) return;
+
+        pressed = 0;
+        // If required reset position store variable
+        if (autoReturnToCenter) {
+            movedX = centerX;
+            movedY = centerY;
+        }
+        // Delete canvas
+        context.clearRect(0, 0, canvas.width, canvas.height);
+        // Redraw object
+        drawExternal();
+        drawInternal();
+
+        // Set attribute of callback
+        StickStatus.xPosition = movedX;
+        StickStatus.yPosition = movedY;
+        StickStatus.x = (100 * ((movedX - centerX) / maxMoveStick)).toFixed();
+        StickStatus.y = ((100 * ((movedY - centerY) / maxMoveStick)) * -1).toFixed();
+        StickStatus.cardinalDirection = getCardinalDirection();
+        callback(StickStatus);
+    }
+
     /**
      * @desc Events for manage mouse
      */
@@ -264,8 +291,8 @@ var JoyStick = (function(container, parameters, callback)
             }
             else
             {
-                movedX -= canvas.offsetParent.offsetLeft;
-                movedY -= canvas.offsetParent.offsetTop;
+                movedX -= canvas.offsetParent.offsetLeft; ////
+                movedY -= canvas.offsetParent.offsetTop; ////
             }
             // Delete canvas
             context.clearRect(0, 0, canvas.width, canvas.height);
@@ -303,6 +330,29 @@ var JoyStick = (function(container, parameters, callback)
         StickStatus.yPosition = movedY;
         StickStatus.x = (100*((movedX - centerX)/maxMoveStick)).toFixed();
         StickStatus.y = ((100*((movedY - centerY)/maxMoveStick))*-1).toFixed();
+        StickStatus.cardinalDirection = getCardinalDirection();
+        callback(StickStatus);
+    }
+
+    ////
+    function onMouseOut(event) {
+        pressed = 0;
+        // If required reset position store variable
+        if (autoReturnToCenter) {
+            movedX = centerX;
+            movedY = centerY;
+        }
+        // Delete canvas
+        context.clearRect(0, 0, canvas.width, canvas.height);
+        // Redraw object
+        drawExternal();
+        drawInternal();
+
+        // Set attribute of callback
+        StickStatus.xPosition = movedX;
+        StickStatus.yPosition = movedY;
+        StickStatus.x = (100 * ((movedX - centerX) / maxMoveStick)).toFixed();
+        StickStatus.y = ((100 * ((movedY - centerY) / maxMoveStick)) * -1).toFixed();
         StickStatus.cardinalDirection = getCardinalDirection();
         callback(StickStatus);
     }

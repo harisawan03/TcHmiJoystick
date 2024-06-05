@@ -35,7 +35,7 @@
     "ENABLE_SERVER_UPDATE": true,
     "ENDPOINTS": [
         "http://127.0.0.1:13000",
-        "http://127.0.0.1:3000"
+        "http://127.0.0.1:3001"
     ],
     "ETAGENABLED": true,
     "EXTENSIONS": {
@@ -2508,6 +2508,26 @@
             },
             "USEMAPPING": true
         },
+        "PLC1.MAIN.X": {
+            "ACCESS": 3,
+            "DOMAIN": "ADS",
+            "DYNAMIC": true,
+            "MAPPING": "PLC1::MAIN::X",
+            "SCHEMA": {
+                "$ref": "tchmi:general#/definitions/INT"
+            },
+            "USEMAPPING": true
+        },
+        "PLC1.MAIN.Y": {
+            "ACCESS": 3,
+            "DOMAIN": "ADS",
+            "DYNAMIC": true,
+            "MAPPING": "PLC1::MAIN::Y",
+            "SCHEMA": {
+                "$ref": "tchmi:general#/definitions/INT"
+            },
+            "USEMAPPING": true
+        },
         "RefreshDefinitions": {
             "ACCESS": 3,
             "DOMAIN": "TcHmiSrv",
@@ -3427,6 +3447,8 @@
                 "LocalizeText": 3,
                 "Login": 3,
                 "Logout": 3,
+                "PLC1.MAIN.X": 3,
+                "PLC1.MAIN.Y": 3,
                 "SetLocale": 3,
                 "SubscribeEvents": 3,
                 "TcHmiSqliteLogger.Diagnostics": 1,
