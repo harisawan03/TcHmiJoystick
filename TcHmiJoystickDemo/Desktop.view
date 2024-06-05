@@ -2,11 +2,7 @@
   <div id="ViewDesktopBeckhoffLogo" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiImage" data-tchmi-src="Images/Beckhoff_Logo.svg" data-tchmi-left="20" data-tchmi-top="20" data-tchmi-width="194" data-tchmi-height="57">
 
   </div>
-<div id="TcHmiTextblock" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiTextblock" data-tchmi-height="26" data-tchmi-height-unit="px" data-tchmi-left="421" data-tchmi-left-unit="px" data-tchmi-text="%f%'X: ' + %s%PLC1.MAIN.X%/s%%/f%" data-tchmi-top="153" data-tchmi-top-unit="px" data-tchmi-width="150" data-tchmi-width-unit="px" data-tchmi-word-wrap="true">
-</div>
-<div id="TcHmiTextblock_1" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiTextblock" data-tchmi-height="26" data-tchmi-height-unit="px" data-tchmi-left="421" data-tchmi-left-unit="px" data-tchmi-text="%f%'Y: ' + %s%PLC1.MAIN.Y%/s%%/f%" data-tchmi-top="217" data-tchmi-top-unit="px" data-tchmi-width="150" data-tchmi-width-unit="px" data-tchmi-word-wrap="true">
-</div>
-<div id="Joystick_1" data-tchmi-type="TcHmi.Controls.TcHmiJoystick.Joystick" data-tchmi-height="200" data-tchmi-height-unit="px" data-tchmi-left="526" data-tchmi-left-unit="px" data-tchmi-top="379" data-tchmi-top-unit="px" data-tchmi-width="200" data-tchmi-width-unit="px" data-tchmi-x="%i%i%/i%" data-tchmi-y="%i%j%/i%">
+<div id="Joystick_1" data-tchmi-type="TcHmi.Controls.TcHmiJoystick.Joystick" data-tchmi-height="200" data-tchmi-height-unit="px" data-tchmi-left="534" data-tchmi-left-unit="px" data-tchmi-top="353" data-tchmi-top-unit="px" data-tchmi-width="200" data-tchmi-width-unit="px" data-tchmi-x="%i%i%/i%" data-tchmi-y="%i%j%/i%">
 
 <script data-tchmi-target-attribute="data-tchmi-joystick-color" type="application/json">
 {
@@ -18,8 +14,12 @@
 </div>
 <div id="TcHmiTextblock_3" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiTextblock" data-tchmi-height="26" data-tchmi-height-unit="px" data-tchmi-left="336" data-tchmi-left-unit="px" data-tchmi-text="%f%'J: ' + %i%j%/i%%/f%" data-tchmi-top="486" data-tchmi-top-unit="px" data-tchmi-width="150" data-tchmi-width-unit="px" data-tchmi-word-wrap="true">
 </div>
-<div id="TcHmiContainer" data-tchmi-type="TcHmi.Controls.System.TcHmiContainer" data-tchmi-height="313" data-tchmi-height-unit="px" data-tchmi-left="0" data-tchmi-left-unit="px" data-tchmi-top="77" data-tchmi-top-unit="px" data-tchmi-width="387" data-tchmi-width-unit="px">
-<div id="Joystick" data-tchmi-type="TcHmi.Controls.TcHmiJoystick.Joystick" data-tchmi-height="200" data-tchmi-height-unit="px" data-tchmi-left="10" data-tchmi-left-unit="px" data-tchmi-top="8" data-tchmi-top-unit="px" data-tchmi-width="200" data-tchmi-width-unit="px" data-tchmi-x="%s%PLC1.MAIN.X%/s%" data-tchmi-y="%s%PLC1.MAIN.Y%/s%" data-tchmi-threshold="50">
+<div id="TcHmiContainer" data-tchmi-type="TcHmi.Controls.System.TcHmiContainer" data-tchmi-left="20" data-tchmi-left-unit="px" data-tchmi-top="87" data-tchmi-top-unit="px" data-tchmi-width="480" data-tchmi-height="272">
+<div id="Joystick" data-tchmi-type="TcHmi.Controls.TcHmiJoystick.Joystick" data-tchmi-left="20.0" data-tchmi-left-unit="px" data-tchmi-top="21.2" data-tchmi-top-unit="px" data-tchmi-x="%s%PLC1.MAIN.X%/s%" data-tchmi-y="%s%PLC1.MAIN.Y%/s%" data-tchmi-threshold="50" data-tchmi-width="200" data-tchmi-height="200">
+</div>
+<div id="TcHmiTextblock" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiTextblock" data-tchmi-height="26" data-tchmi-height-unit="px" data-tchmi-left="262" data-tchmi-left-unit="px" data-tchmi-text="%f%'X: ' + %s%PLC1.MAIN.X%/s%%/f%" data-tchmi-top="69" data-tchmi-top-unit="px" data-tchmi-width="150" data-tchmi-width-unit="px" data-tchmi-word-wrap="true">
+</div>
+<div id="TcHmiTextblock_1" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiTextblock" data-tchmi-height="26" data-tchmi-height-unit="px" data-tchmi-left="262" data-tchmi-left-unit="px" data-tchmi-text="%f%'Y: ' + %s%PLC1.MAIN.Y%/s%%/f%" data-tchmi-top="126" data-tchmi-top-unit="px" data-tchmi-width="150" data-tchmi-width-unit="px" data-tchmi-word-wrap="true">
 </div>
 </div>
 </div>
